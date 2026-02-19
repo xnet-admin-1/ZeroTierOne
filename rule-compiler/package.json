@@ -13,6 +13,6 @@
   "keywords": [
     "ZeroTier"
   ],
-  "author": "ZeroTier, Inc. <contact@zerotier.com>",
+  "author": "XNet Inc. <contact@xnet.ngo> (fork of ZeroTier, Inc. <contact@zerotier.com>)",
   "license": "GPL-2.0"
 }

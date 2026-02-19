@@ -4,8 +4,14 @@ about: Create a report to help us improve
 
 ---
 **Alternative, faster ways to get help**
+
+**XNet Inc. Support:**
+- Email: contact@xnet.ngo
+- For issues specific to this fork, please use GitHub Issues
+
+**Original ZeroTier Resources:**
 If you have just started using ZeroTier, here are some places to get help:
-- my.zerotier.com has a _Community_ tab. It's a live chat with other users and the developers. 
+- my.zerotier.com has a _Community_ tab. It's a live chat with other users and the developers.
 - [ZeroTier Knowledge Base](https://zerotier.atlassian.net/wiki/spaces/SD/overview)
 - www.zerotier.com has a Contact Us button
 - email contact@zerotier.com
@@ -31,7 +37,7 @@ If applicable, add screenshots or console output to help explain your problem.
  - OS/Distribution Version
  - ZeroTier Version [e.g. 1.2.4]
  - Hardware [e.g. raspberry pi 3]
- 
+
 **Smartphone (please complete the following information):**
  - Device: [e.g. iPhone6]
  - OS: [e.g. iOS8.1]
@@ -43,4 +49,3 @@ Add any other context about the problem here.
 - Router Config
 - Firewall Config (try turning the firewall off)
 - General Network Environment: [ e.g Home, University Campus, Corporate LAN ]
-

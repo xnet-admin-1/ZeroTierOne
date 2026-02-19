@@ -1,3 +1,13 @@
+zerotier-one (1.4.0+xnet1) unstable; urgency=medium
+
+  * XNet Inc. fork - Initial rebranding
+  * Updated maintainer contact to contact@xnet.ngo
+  * Added NOTICE.md and CHANGELOG-XNET.md
+  * Preserved all original copyright notices and attributions
+  * See CHANGELOG-XNET.md for fork-specific changes
+
+ -- XNet Inc. <contact@xnet.ngo>  Wed, 19 Feb 2025 00:00:00 +0000
+
 zerotier-one (1.4.0) unstable; urgency=medium
 
   * See https://github.com/zerotier/ZeroTierOne for release notes.

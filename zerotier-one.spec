@@ -1,10 +1,10 @@
 Name:           zerotier-one
 Version:        1.4.0
-Release:        1%{?dist}
-Summary:        ZeroTier One network virtualization service
+Release:        1.xnet1%{?dist}
+Summary:        ZeroTier One network virtualization service (XNet Inc. fork)
 
 License:        GPLv3
-URL:            https://www.zerotier.com
+URL:            https://github.com/xnet-admin-1/ZeroTierOne
 
 %if 0%{?rhel} >= 7
 BuildRequires:  systemd
@@ -145,6 +145,13 @@ esac
 %endif
 
 %changelog
+* Wed Feb 19 2025 XNet Inc. <contact@xnet.ngo> - 1.4.0-1.xnet1
+- XNet Inc. fork - Initial rebranding
+- Updated maintainer contact to contact@xnet.ngo
+- Added NOTICE.md and CHANGELOG-XNET.md
+- Preserved all original copyright notices and attributions
+- See CHANGELOG-XNET.md for fork-specific changes
+
 * Mon Jul 29 2019 Adam Ierymenko <adam.ierymenko@zerotier.com> - 1.4.0-0.1
 - see https://github.com/zerotier/ZeroTierOne for release notes
 

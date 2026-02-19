@@ -1,6 +1,9 @@
 ## Primary Authors
 
- * ZeroTier Core and ZeroTier One virtual networking service<br>
+ * **XNet Inc. Fork Maintainer**<br>
+   XNet Inc. / contact@xnet.ngo
+
+ * **Original ZeroTier Core and ZeroTier One virtual networking service**<br>
    Adam Ierymenko / adam.ierymenko@zerotier.com
    Joseph Henry / joseph.henry@zerotier.com (QoS and multipath)
 

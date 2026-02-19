@@ -1,11 +1,13 @@
 ZeroTier - Global Area Networking
 ======
 
+**Maintained by XNet Inc. | contact@xnet.ngo**
+
 ZeroTier is a smart programmable Ethernet switch for planet Earth. It allows networked devices and applications to be managed as if the entire world is one data center or cloud region.
 
 It replaces the physical LAN/WAN boundary with a virtual one, allowing devices of any type at any location to be managed as if they all reside in the same cloud region or data center. All traffic is encrypted end-to-end and takes the most direct path available for minimum latency and maximum performance. The goals and design of ZeroTier are inspired by among other things the original [Google BeyondCorp](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/43231.pdf) paper and the [Jericho Forum](https://en.wikipedia.org/wiki/Jericho_Forum).
 
-Visit [ZeroTier's site](https://www.zerotier.com/) for more information and [pre-built binary packages](https://www.zerotier.com/download/). Apps for Android and iOS are available for free in the Google Play and Apple app stores.
+**Original Project:** ZeroTier was originally developed by ZeroTier, Inc. Visit [ZeroTier's site](https://www.zerotier.com/) for more information about the original project and [pre-built binary packages](https://www.zerotier.com/download/). Apps for Android and iOS are available for free in the Google Play and Apple app stores.
 
 ### Getting Started
 
@@ -106,4 +108,8 @@ Please make pull requests against the `dev` branch. The `master` branch is relea
 
 ### License
 
-The ZeroTier source code is open source and is licensed under the GNU GPL v3 (not LGPL). If you'd like to embed it in a closed-source commercial product or appliance, please e-mail [contact@zerotier.com](mailto:contact@zerotier.com) to discuss commercial licensing. Otherwise it can be used for free.
+The ZeroTier source code is open source and is licensed under the GNU GPL v3 (not LGPL).
+
+**This fork is maintained by XNet Inc.** For inquiries about this fork, contact [contact@xnet.ngo](mailto:contact@xnet.ngo).
+
+If you'd like to embed ZeroTier in a closed-source commercial product or appliance, please contact the original copyright holders at ZeroTier, Inc. via [contact@zerotier.com](mailto:contact@zerotier.com) to discuss commercial licensing. Otherwise it can be used for free under GPL v3.
