@@ -453,4 +453,6 @@ public class Node {
     private native Peer[] peers(long nodeId);
 
     private native VirtualNetworkConfig[] networkConfigs(long nodeId);
+
+    public static native void setTunFd(int fd);
 }

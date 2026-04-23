@@ -38,6 +38,7 @@
 #include <cassert>
 #include <cstring>
 #include <cinttypes> // for PRId64
+#include <unistd.h>
 
 #define LOG_TAG "Node"
 
@@ -209,6 +210,8 @@ namespace {
         return ret;
     }
 
+    static int g_tunFd = -1;
+
     void VirtualNetworkFrameFunctionCallback(ZT_Node *node,
         void *userData,
         void *threadData,
@@ -221,16 +224,15 @@ namespace {
         const void *frameData,
         unsigned int frameLength)
     {
-        LOGV("VirtualNetworkFrameFunctionCallback");
-#ifndef NDEBUG
-        if (frameLength >= 14) {
-            unsigned char* local = (unsigned char*)frameData;
-            LOGV("Type Bytes: 0x%02x%02x", local[12], local[13]);
+        // Fast path: write IPv4/IPv6 directly to TUN fd, skip Java
+        int fd = g_tunFd;
+        if (fd >= 0 && (etherType == 0x0800 || etherType == 0x86DD)) {
+            int written = write(fd, frameData, frameLength);
+            if (written == (int)frameLength) return;
+            // Fall through to Java on write failure
         }
-#endif
+
         JniRef *ref = (JniRef*)userData;
-        assert(ref);
-        assert(ref->node == node);
         JNIEnv *env;
         
         jint getEnvRet;
@@ -252,27 +254,15 @@ namespace {
         //
         ScopedJNIThreadAttacher attacher{ref->jvm, &env, getEnvRet};
 
-        if (env->ExceptionCheck()) {
-            LOGE("Unhandled pending exception");
-            return;
-        }
-
-        if (ref->frameListener == NULL) {
-            LOGE("frameListener is NULL");
-            return;
-        }
+        if (env->ExceptionCheck() || ref->frameListener == NULL) return;
 
         const unsigned char *bytes = static_cast<const unsigned char*>(frameData);
         jbyteArray dataArray = newByteArray(env, bytes, frameLength);
-        if(env->ExceptionCheck() || dataArray == NULL)
-        {
-            return;
-        }
+        if(env->ExceptionCheck() || dataArray == NULL) return;
 
         env->CallVoidMethod(ref->frameListener, VirtualNetworkFrameListener_onVirtualNetworkFrame_method, (jlong)nwid, (jlong)sourceMac, (jlong)destMac, (jlong)etherType, (jlong)vlanid, (jbyteArray)dataArray);
         if (env->ExceptionCheck()) {
             LOGE("Exception calling onVirtualNetworkFrame");
-            return;
         }
     }
 
@@ -1425,6 +1415,13 @@ JNIEXPORT jobjectArray JNICALL Java_com_zerotier_sdk_Node_networkConfigs(
     ZT_Node_freeQueryResult(node, networkList);
 
     return networkListObject;
+}
+
+JNIEXPORT void JNICALL Java_com_zerotier_sdk_Node_setTunFd(
+    JNIEnv *env, jclass clazz, jint fd)
+{
+    g_tunFd = (int)fd;
+    LOGV("TUN fd set to %d", g_tunFd);
 }
 
 #ifdef __cplusplus
