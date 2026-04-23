@@ -56,6 +56,8 @@ set(src_files
     ../node/Tag.cpp
     ../node/Trace.cpp
     ../node/Bond.cpp
+    ../node/AES.cpp
+    ../node/AES_armcrypto.cpp
     ../osdep/Http.cpp
     ../osdep/OSUtils.cpp
     jni/com_zerotierone_sdk_Node.cpp
