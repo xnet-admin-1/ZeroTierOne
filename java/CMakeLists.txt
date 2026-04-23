@@ -55,6 +55,7 @@ set(src_files
     ../node/Revocation.cpp
     ../node/Tag.cpp
     ../node/Trace.cpp
+    ../node/Bond.cpp
     ../osdep/Http.cpp
     ../osdep/OSUtils.cpp
     jni/com_zerotierone_sdk_Node.cpp
