@@ -31,8 +31,6 @@ set(src_files
     ../ext/http-parser/http_parser.c
     ../node/C25519.cpp
     ../node/CertificateOfMembership.cpp
-    ../node/Defaults.cpp
-    ../node/Dictionary.cpp
     ../node/Identity.cpp
     ../node/IncomingPacket.cpp
     ../node/InetAddress.cpp
@@ -50,6 +48,13 @@ set(src_files
     ../node/Switch.cpp
     ../node/Topology.cpp
     ../node/Utils.cpp
+    ../node/Capability.cpp
+    ../node/CertificateOfOwnership.cpp
+    ../node/Membership.cpp
+    ../node/Path.cpp
+    ../node/Revocation.cpp
+    ../node/Tag.cpp
+    ../node/Trace.cpp
     ../osdep/Http.cpp
     ../osdep/OSUtils.cpp
     jni/com_zerotierone_sdk_Node.cpp
@@ -88,4 +93,4 @@ if(WIN32)
         )
 endif()
 
-target_link_libraries(${PROJECT_NAME} ${link_libs})
+target_link_libraries(${PROJECT_NAME} ${link_libs} log)
