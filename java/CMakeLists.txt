@@ -98,3 +98,4 @@ if(WIN32)
 endif()
 
 target_link_libraries(${PROJECT_NAME} ${link_libs} log)
+set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "-Wl,-z,max-page-size=16384")
