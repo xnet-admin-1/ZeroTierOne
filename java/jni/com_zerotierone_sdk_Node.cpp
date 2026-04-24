@@ -42,6 +42,7 @@
 
 #define LOG_TAG "Node"
 
+    static int g_tunFd = -1;
 namespace {
     struct JniRef
     {
@@ -210,7 +211,6 @@ namespace {
         return ret;
     }
 
-    static int g_tunFd = -1;
 
     void VirtualNetworkFrameFunctionCallback(ZT_Node *node,
         void *userData,
