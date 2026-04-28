@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <utility>
 #include <stdexcept>
+#include <thread>
 
 #include "../version.h"
 #include "../include/ZeroTierOne.h"

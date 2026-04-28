@@ -34,11 +34,13 @@ set(src_files
     ../node/Identity.cpp
     ../node/IncomingPacket.cpp
     ../node/InetAddress.cpp
+    ../node/Metrics.cpp
     ../node/Multicaster.cpp
     ../node/Network.cpp
     ../node/NetworkConfig.cpp
     ../node/Node.cpp
     ../node/OutboundMulticast.cpp
+    ../node/PacketMultiplexer.cpp
     ../node/Packet.cpp
     ../node/Peer.cpp
     ../node/Poly1305.cpp

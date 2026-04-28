@@ -29,7 +29,7 @@ PacketMultiplexer::PacketMultiplexer(const RuntimeEnvironment* renv)
 
 void PacketMultiplexer::putFrame(void* tPtr, uint64_t nwid, void** nuptr, const MAC& source, const MAC& dest, unsigned int etherType, unsigned int vlanId, const void* data, unsigned int len, unsigned int flowId)
 {
-#if defined(__APPLE__) || defined(__OpenBSD__) || defined(__NetBSD__) || defined(__WINDOWS__)
+#if defined(__APPLE__) || defined(__OpenBSD__) || defined(__NetBSD__) || defined(__WINDOWS__) || defined(__ANDROID__)
 	RR->node->putFrame(tPtr,nwid,nuptr,source,dest,etherType,vlanId,(const void *)data,len);
 	return;
 #endif
@@ -67,7 +67,7 @@ void PacketMultiplexer::putFrame(void* tPtr, uint64_t nwid, void** nuptr, const 
 
 void PacketMultiplexer::setUpPostDecodeReceiveThreads(unsigned int concurrency, bool cpuPinningEnabled)
 {
-#if defined(__APPLE__) || defined(__OpenBSD__) || defined(__NetBSD__) || defined(__WINDOWS__)
+#if defined(__APPLE__) || defined(__OpenBSD__) || defined(__NetBSD__) || defined(__WINDOWS__) || defined(__ANDROID__)
 	return;
 #endif
 	_enabled = true;

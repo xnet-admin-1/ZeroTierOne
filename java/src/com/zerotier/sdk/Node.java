@@ -455,4 +455,7 @@ public class Node {
     private native VirtualNetworkConfig[] networkConfigs(long nodeId);
 
     public static native void setTunFd(int fd);
+    public static native void startNativeTx(long nodeId, long nwid, long sourceMac, int localIpv4);
+    public static native void stopNativeTx();
+    public static native void nativeArpSet(int ip, long mac);
 }
