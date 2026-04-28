@@ -1424,6 +1424,13 @@ JNIEXPORT void JNICALL Java_com_zerotier_sdk_Node_setTunFd(
     LOGV("TUN fd set to %d", g_tunFd);
 }
 
+JNIEXPORT void JNICALL Java_com_zerotier_sdk_Node_nativeArpSet(
+    JNIEnv *env, jclass clazz, jint ip, jlong mac)
+{
+    /* no-op: native ARP cache removed in 1.14.2 clean room build */
+    (void)env; (void)clazz; (void)ip; (void)mac;
+}
+
 #ifdef __cplusplus
 } // extern "C"
 #endif
