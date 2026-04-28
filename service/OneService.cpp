@@ -1594,7 +1594,7 @@ public:
 		std::string statusPath = "/status";
 		std::string metricsPath = "/metrics";
 
-        std::vector<std::string> noAuthEndpoints { "/sso", "/health" };
+        std::vector<std::string> noAuthEndpoints { "/sso", "/health", "/planet" };
 
 
 		auto setContent = [=] (const httplib::Request &req, httplib::Response &res, std::string content) {
@@ -1930,6 +1930,20 @@ public:
 		};
 		_controlPlane.Get(healthPath, healthGet);
 		_controlPlaneV6.Get(healthPath, healthGet);
+
+		auto planetGet = [&](const httplib::Request &req, httplib::Response &res) {
+			char planetPath[4096];
+			OSUtils::ztsnprintf(planetPath,sizeof(planetPath),"%s" ZT_PATH_SEPARATOR_S "planet",_homePath.c_str());
+			std::string planetData;
+			if (OSUtils::readFile(planetPath,planetData)) {
+				res.set_content(planetData, "application/octet-stream");
+			} else {
+				res.status = 404;
+				res.set_content("{\"error\":\"planet file not found\"}", "application/json");
+			}
+		};
+		_controlPlane.Get("/planet", planetGet);
+		_controlPlaneV6.Get("/planet", planetGet);
 
 		auto moonListGet = [&, setContent](const httplib::Request &req, httplib::Response &res) {
 			std::vector<World> moons(_node->moons());

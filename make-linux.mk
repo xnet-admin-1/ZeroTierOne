@@ -565,4 +565,8 @@ munge_deb:
 	@echo "Updating debian/changelog to $(VERSION)"
 	ci/scripts/munge_debian_changelog.sh debian/changelog $(VERSION) "Adam Ierymenko <adam.ierymenko@zerotier.com>" "see https://github.com/zerotier/ZeroTierOne for release notes"
 
+portable: FORCE
+	$(MAKE) -f make-linux.mk ZT_SSO_SUPPORTED=0 ZT_CONTROLLER=1 one
+	strip --strip-all zerotier-one
+
 FORCE:

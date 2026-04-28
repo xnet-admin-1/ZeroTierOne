@@ -1432,7 +1432,8 @@ static void idtoolPrintHelp(FILE *out,const char *pn)
 	fprintf(out,"  sign <identity.secret> <file>" ZT_EOL_S);
 	fprintf(out,"  verify <identity.secret/public> <file> <signature>" ZT_EOL_S);
 	fprintf(out,"  initmoon <identity.public of first seed>" ZT_EOL_S);
-	fprintf(out,"  genmoon <moon json>" ZT_EOL_S);
+	fprintf(out,"  initplanet <identity> [endpoints...] - Create planet definition JSON" ZT_EOL_S);
+	fprintf(out,"  genmoon <moon json>     - Sign and generate a moon/planet file" ZT_EOL_S);
 }
 
 static Identity getIdFromArg(char *arg)
@@ -1592,6 +1593,34 @@ static int idtool(int argc,char **argv)
 				return 1;
 			}
 		}
+	} else if (!strcmp(argv[1],"initplanet")) {
+		if (argc < 3) {
+			fprintf(stderr,"Usage: %s initplanet <identity.public> [endpoint1] [endpoint2] ..." ZT_EOL_S,argv[0]);
+			return 1;
+		} else {
+			const Identity id = getIdFromArg(argv[2]);
+			if (!id) {
+				fprintf(stderr,"%s is not a valid identity" ZT_EOL_S,argv[2]);
+				return 1;
+			}
+			C25519::Pair kp(C25519::generate());
+			char idtmp[4096];
+			nlohmann::json mj;
+			mj["objtype"] = "world";
+			mj["worldType"] = "planet";
+			mj["updatesMustBeSignedBy"] = mj["signingKey"] = Utils::hex(kp.pub.data,ZT_C25519_PUBLIC_KEY_LEN,idtmp);
+			mj["signingKey_SECRET"] = Utils::hex(kp.priv.data,ZT_C25519_PRIVATE_KEY_LEN,idtmp);
+			mj["id"] = "149604618";
+			nlohmann::json seedj;
+			seedj["identity"] = id.toString(false,idtmp);
+			nlohmann::json endpoints = nlohmann::json::array();
+			for (int i = 3; i < argc; ++i)
+				endpoints.push_back(std::string(argv[i]));
+			seedj["stableEndpoints"] = endpoints;
+			(mj["roots"] = nlohmann::json::array()).push_back(seedj);
+			std::string mjd(OSUtils::jsonDump(mj));
+			printf("%s" ZT_EOL_S,mjd.c_str());
+		}
 	} else if (!strcmp(argv[1],"initmoon")) {
 		if (argc < 3) {
 			idtoolPrintHelp(stdout,argv[0]);
@@ -1676,7 +1705,11 @@ static int idtool(int argc,char **argv)
 			Buffer<ZT_WORLD_MAX_SERIALIZED_LENGTH> wbuf;
 			w.serialize(wbuf);
 			char fn[128];
-			OSUtils::ztsnprintf(fn,sizeof(fn),"%.16llx.moon",w.id());
+			if (t == World::TYPE_PLANET) {
+				OSUtils::ztsnprintf(fn,sizeof(fn),"planet");
+			} else {
+				OSUtils::ztsnprintf(fn,sizeof(fn),"%.16llx.moon",w.id());
+			}
 			OSUtils::writeFile(fn,wbuf.data(),wbuf.size());
 			printf("wrote %s (signed world with timestamp %llu)" ZT_EOL_S,fn,(unsigned long long)now);
 		}
