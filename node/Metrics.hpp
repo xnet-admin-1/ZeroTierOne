@@ -12,7 +12,10 @@ namespace prometheus {
         Histogram& operator=(const Histogram&) { return *this; }
     };
     template<typename T> struct CustomFamily {
-        Histogram<uint64_t> Add(std::initializer_list<std::pair<std::string,std::string>>, const std::initializer_list<uint64_t>&) {
+        Histogram<uint64_t>& Add(std::initializer_list<std::pair<std::string,std::string>>, const std::initializer_list<uint64_t>&) {
+            static Histogram<uint64_t> h; return h;
+        }
+        Histogram<uint64_t>& Add(std::initializer_list<std::pair<std::string,std::string>>, const std::vector<uint64_t>&) {
             static Histogram<uint64_t> h; return h;
         }
     };
@@ -25,6 +28,7 @@ namespace prometheus {
             void Increment(double v=1) {}
         };
         struct gauge_metric_t {
+            gauge_metric_t& operator=(int) { return *this; }
             gauge_metric_t& operator++() { return *this; }
             gauge_metric_t operator++(int) { return *this; }
             gauge_metric_t& operator--() { return *this; }
